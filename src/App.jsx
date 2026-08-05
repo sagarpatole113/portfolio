@@ -8,7 +8,7 @@ const portfolioData = {
   email: 'sagarpatole113@gmail.com',
   phone: '+91 7020641225',
   location: 'Jalna, Maharashtra',
-  profileImage: '/sagar-profile.jpg',
+  profileImage: `${import.meta.env.BASE_URL}sagar-profile.jpg`,
   description:  'I’m a Full Stack Developer with 3+ years of experience working on enterprise applications across agriculture, customer loyalty, internal SaaS platforms, and business operations. My primary stack includes .NET Core, React.js, and Node.js, with PostgreSQL and MongoDB for data management. I have worked on REST API development, authentication and authorization, background services, third-party integrations, data encryption, and reusable application components. I enjoy solving backend and full-stack engineering problems and turning complex business requirements into clean, reliable, and maintainable solutions.',
   linkedinUrl: 'https://www.linkedin.com/in/sagar-patole-953015182/',
   githubUrl: 'https://github.com/sagarpatole113',
