@@ -18,7 +18,7 @@ const portfolioData = {
     { category: 'Languages', items: ['C#', 'JavaScript (ES6+)', 'TypeScript', 'SQL'] },
     { category: 'Frontend', items: ['React.js', 'Context API','Redux Toolkit', 'Material UI (MUI)'] },
     { category: 'Backend', items: ['.NET Core', 'ASP.NET', 'Node.js (Express.js)'] },
-    { category: 'Databases', items: ['MongoDB (NoSQL)', 'PostgreSQL (Relational/SQL)', 'Entity Framework'] },
+    { category: 'Databases', items: ['MongoDB (NoSQL)', 'PostgreSQL (Relational/SQL)', 'Redis', 'Entity Framework'] },
     { category: 'Security', items: ['JWT Authentication'] },
     { category: 'Tools', items: ['Agile/Scrum', 'SDLC', 'Git', 'Postman', 'Swagger/OpenAPI', 'Jira', 'Visual Studio', 'VS Code'] }
   ],
