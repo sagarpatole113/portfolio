@@ -1,4 +1,5 @@
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowRight,  Mail } from 'lucide-react'
+import { Github, Linkedin } from '../components/BrandIcons'
 import { githubUrl, linkedinUrl, emailAddress } from '../data/portfolioData'
 
 export default function Hero() {
