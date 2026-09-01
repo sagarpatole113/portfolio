@@ -1,347 +1,134 @@
-import { useState } from 'react'
-import { Menu, X, Mail, Phone, MapPin, ArrowRight, ExternalLink, Download, Code, Briefcase, GraduationCap, Award } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Github, Linkedin } from './components/BrandIcons'
 
-const portfolioData = {
-  name: 'Sagar Moses Patole',
-  title: 'Full Stack Developer | .NET Core, React.js & Node.js Developer',
-  summary: 'I build secure, scalable, and maintainable web applications by combining strong backend engineering with modern frontend development.',
-  email: 'sagarpatole113@gmail.com',
-  phone: '+91 7020641225',
-  location: 'Jalna, Maharashtra',
-  profileImage: `${import.meta.env.BASE_URL}sagar-profile.jpg`,
-  description:  'I’m a Full Stack Developer with 3+ years of experience working on enterprise applications across agriculture, customer loyalty, internal SaaS platforms, and business operations. My primary stack includes .NET Core, React.js, and Node.js, with PostgreSQL and MongoDB for data management. I have worked on REST API development, authentication and authorization, background services, third-party integrations, data encryption, and reusable application components. I enjoy solving backend and full-stack engineering problems and turning complex business requirements into clean, reliable, and maintainable solutions.',
-  linkedinUrl: 'https://www.linkedin.com/in/sagar-patole-953015182/',
-  githubUrl: 'https://github.com/sagarpatole113',
+const resumePath = `${import.meta.env.BASE_URL}Sagar_Patole_Resume.pdf`
 
+const projects = [
+  { name:'FLEETPULSE', type:'Fleet Management & Real-Time Tracking', description:'Full-stack fleet management for vehicles, drivers, trips and live operations.', stack:'React · TypeScript · Node.js · Firebase · Socket.IO · Leaflet', link:'https://fleet-pulse-dash.netlify.app/', accent:'01' },
+  { name:'FOOD FLOW', type:'Real-Time Order Management', description:'End-to-end food ordering with cart management and live delivery status updates.', stack:'React · Vite · Firebase · Node.js · REST APIs', link:'https://order-management-dash.netlify.app/', accent:'02' },
+]
 
-  skills: [
-    { category: 'Languages', items: ['C#', 'JavaScript (ES6+)', 'TypeScript', 'SQL'] },
-    { category: 'Frontend', items: ['React.js', 'Context API','Redux Toolkit', 'Material UI (MUI)'] },
-    { category: 'Backend', items: ['.NET Core', 'ASP.NET', 'Node.js (Express.js)'] },
-    { category: 'Databases', items: ['MongoDB (NoSQL)', 'PostgreSQL (Relational/SQL)', 'Redis', 'Entity Framework'] },
-    { category: 'Security', items: ['JWT Authentication'] },
-    { category: 'Tools', items: ['Agile/Scrum', 'SDLC', 'Git', 'Postman', 'Swagger/OpenAPI', 'Jira', 'Visual Studio', 'VS Code'] }
-  ],
+const skills = [
+  ['LANGUAGES', 'C#, JavaScript (ES6+), TypeScript, SQL'],
+  ['FRONTEND', 'React.js, Material UI, Redux, Redux Toolkit'],
+  ['BACKEND', '.NET Core, Node.js (Express), REST APIs'],
+  ['DATA', 'MongoDB, PostgreSQL'],
+  ['SECURITY', 'JWT, AES Encryption, Data Masking'],
+  ['TOOLS', 'Git, Postman, Swagger, Jira, Visual Studio, VS Code'],
+]
 
-   experience: [
-    {
-      company: 'Grow Indigo Private Ltd',
-      location: 'Jalna',
-      role: 'Software Development Engineer',
-      duration: 'Dec 2023 – Jun 2026',
-      projects: [
-        {
-          name: 'Grow Online',
-          tech: 'Node.js, MongoDB, .NET Core, PostgreSQL, React.js',
-          points: [
-            'Developed and maintained RESTful APIs for rewards-based customer loyalty program',
-            'Implemented backend services for reward configuration and transaction history tracking',
-            'Led data security proof-of-concept for end-to-end request/response encryption',
-            'Built and published reusable encryption components as NPM and NuGet packages',
-            'Developed product bulk-upload module supporting multi-entity imports and ZIP-based bulk image uploads',
-            'Added built-in data masking support to reusable encryption packages for downstream teams',
-            'Contributed to CMS and IAM integrations, Schemes module, and cross-module bug fixes'
-          ]
-        },
-        {
-          name: 'Agricloud',
-          tech: 'Node.js, MongoDB, .NET Core, PostgreSQL, React.js',
-          points: [
-            'Built React.js dashboard for internal SaaS platform',
-            'Integrated .NET Core APIs via Axios with Context API state management',
-            'Implemented role-based access control and protected routes',
-            'Created reusable UI and API components to accelerate future development'
-          ]
-        },
-        {
-          name: 'Connect Plus',
-          tech: 'React.js, Axios, Context API, .NET Core APIs, React Router, Material UI',
-          points: [
-            'Developed an internal Wi-Fi request form using .NET Core and React.js to streamline employee onboarding',
-            'Led a proof-of-concept for interactive, self-service business analytics dashboards using Redash and Metabase'
-          ]
-        },
-        {
-          name: 'Field Connect',
-          tech: '.NET Core, ASP.NET, PostgreSQL, SAP APIs',
-          points: [
-            'Designed penalty calculation engine for sales returns',
-            'Developed background worker services for POD processing',
-            'Integrated WhatsApp, OTP, and email notifications with retry logic and error handling',
-            'Automated proof-of-delivery (POD) processing and delivery confirmations'
-          ]
-        },
-          {
-          name: 'Excel Plugin for Reports',
-          tech: 'VBA, Excel Add-in, Snowflake, SQL',
-          points: [
-            'Built an Excel add-in using VBA to pull data directly from Snowflake views into user reports',
-            'Designed a user-friendly Excel interface with dynamic filters to trigger view-based queries on demand',
-            'Implemented parameterized Snowflake view queries based on selected filters and exported results directly into Excel workbooks'
-          ]
-        },
-        {
-          name: 'Farmer Portal',
-          tech: '.NET Core, React.js, PostgreSQL, JWT, Entity Framework Core, REST APIs',
-          points: [
-            'Built a standalone JWT authentication service in .NET Core for farmer-specific APIs without altering existing user middleware',
-            'Designed a secure token generation and validation flow with PostgreSQL-backed token tracking using Entity Framework and repository pattern',
-            'Built a React dashboard integrated with authenticated APIs to support secure self-service farmer workflows'
-          ]
-        }
-       ]
-    },
-    {
-      company: 'Grow Indigo Private Ltd',
-      location: 'Jalna',
-      role: 'Software Developer Intern',
-      duration: 'Jun 2023 – Dec 2023',
-      projects: [
-      
-      ]
-    }
-  ],
+const experience = [
+  {
+    number:'01', role:'SOFTWARE DEVELOPMENT ENGINEER', company:'GROW INDIGO PRIVATE LTD · MUMBAI', duration:'DEC 2023 – JUN 2026',
+    projects:[
+      ['Grow Online','Node.js · MongoDB · .NET Core · PostgreSQL · React.js',['Built and maintained REST APIs for a rewards-based loyalty program.','Developed reward configuration, transaction history, and scheduled backend services.']],
+      ['Agricloud','Node.js · MongoDB · .NET Core · PostgreSQL · React.js',['Led a data security PoC for encrypting requests and responses across React, Node.js, and .NET Core.','Built reusable NPM and NuGet encryption packages with data masking, adopted by multiple teams.','Built product bulk-upload workflows for multi-entity imports and ZIP-based image uploads.']],
+      ['Connect Plus','React.js · Axios · Context API · .NET Core APIs · React Router · Material UI',['Built a responsive React dashboard for an internal SaaS platform used across business teams.','Added role-based access, protected routes, and reusable components.']],
+      ['Field Connect','.NET Core · ASP.NET · PostgreSQL · SAP APIs · Third-Party APIs',['Built a penalty calculation engine for sales returns based on expiry and shelf-life rules.','Automated proof-of-delivery tracking with background workers and integrated WhatsApp, OTP, and email notifications.']],
+      ['Excel Plugin for Reports','VBA · Excel Add-in · Snowflake · SQL',['Built an Excel add-in to pull live data from Snowflake views and trigger parameterized queries through filters.','Automated report exports directly into Excel.']],
+      ['Farmer Portal','.NET Core · React.js · PostgreSQL · JWT · Entity Framework Core · REST APIs',['Built a standalone JWT authentication service with PostgreSQL-backed token tracking.','Built a React dashboard connected to secure APIs for self-service farmer workflows.']]
+    ]
+  },
+  {
+    number:'02', role:'SOFTWARE DEVELOPER INTERN', company:'GROW INDIGO PRIVATE LTD · MUMBAI', duration:'JUN 2023 – DEC 2023',
+    projects:[['Internal Platform Initiatives','.NET Core · React.js · Redash · Metabase',['Developed an internal Wi-Fi request form using .NET Core and React.js for employee onboarding.','Led a PoC for interactive, user-driven dashboards using Redash and Metabase.']]]
+  }
+]
 
-  education: [
-    {
-      degree: 'Post Graduate Diploma in Advanced Computing (PG-DAC)',
-      institution: 'Centre for Development of Advanced Computing (C-DAC)',
-      year: 'Sep 2022'
-    },
-    {
-      degree: 'MBA IT',
-      institution: 'Savitribai Phule Pune University',
-      year: '2019'
-    },
-    {
-      degree: 'BCA',
-      institution: 'Dr. Babasaheb Ambedkar Marathwada University, Aurangabad',
-      year: '2017'
-    }
-  ],
+const nav = ['ABOUT', 'WORK', 'PROJECTS', 'STACK', 'CONTACT']
 
-  achievements: [
-    {
-      title: 'Tech Rising Star Award – 2024',
-      description: 'Recognized at annual company conference for outstanding technical contributions and innovation across multiple projects'
-    }
-  ]
-}
+function App(){
+  const [menuOpen,setMenuOpen]=useState(false)
+  const [scrolled,setScrolled]=useState(false)
+  useEffect(()=>{ const onScroll=()=>setScrolled(window.scrollY>20); window.addEventListener('scroll',onScroll); return()=>window.removeEventListener('scroll',onScroll)},[])
+  const go=(id)=>{setMenuOpen(false);document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
 
-export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  return <div className="flyt-site">
+    <header className={`topbar ${scrolled?'scrolled':''}`}>
+      <button className="logo" onClick={()=>go('home')}><span className="logo-mark">S</span><span>SAGAR.P</span></button>
+      <nav className={menuOpen?'open':''}>{nav.map(n=><button key={n} onClick={()=>go(n.toLowerCase())}>{n}</button>)}</nav>
+      <div className="top-actions">
+        <a className="resume-btn" href={resumePath} download>GET RESUME ↗</a>
+        <button className="hamburger" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'×':'☰'}</button>
+      </div>
+    </header>
 
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border-color">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <a href="#home" className="flex items-center gap-2 font-bold text-lg text-primary">
-              <span className="text-foreground">&lt;</span>
-              <span>SP</span>
-              <span className="text-foreground">/&gt;</span>
-            </a>
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#about" className="text-foreground hover:text-primary transition-colors text-sm">About</a>
-              <a href="#experience" className="text-foreground hover:text-primary transition-colors text-sm">Experience</a>
-              <a href="#skills" className="text-foreground hover:text-primary transition-colors text-sm">Skills</a>
-              <a href="#contact" className="text-foreground hover:text-primary transition-colors text-sm">Contact</a>
-            </div>
-            <div className="hidden md:flex items-center gap-4">
-              <a href={portfolioData.githubUrl} target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors">
-                Github
-              </a>
-              <a href={portfolioData.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors">
-                LinkedIn
-              </a>
+    <main>
+      <section id="home" className="hero-section paper-grid">
+        <div className="hero-inner wrap">
+          <div className="hero-copy">
+            <p className="micro">FULL STACK DEVELOPER · INDIA</p>
+            <h1>CODE AT<br/><span>FULL SPEED.</span></h1>
+            <p className="hero-tag">Hard problems. Secure systems. Meaningful products.</p>
+            <div className="hero-buttons">
+              <button className="pixel-button" onClick={()=>go('projects')}>EXPLORE WORK <span>→</span></button>
+              <a className="text-link" href={resumePath} download>DOWNLOAD CV ↓</a>
             </div>
           </div>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section id="home" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div>
-                <p className="text-primary text-sm font-semibold mb-2">Welcome to my portfolio</p>
-                <h1 className="text-5xl sm:text-6xl font-bold text-balance mb-4">
-                  {portfolioData.name}
-                </h1>
-                <p className="text-2xl text-accent font-semibold">{portfolioData.title}</p>
-              </div>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-lg">
-                {portfolioData.summary}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href={`mailto:${portfolioData.email}`} className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors flex items-center justify-center gap-2">
-                  <Mail size={20} /> Get in touch
-                </a>
-                <a href="tel:+917020641225" className="border border-primary text-primary px-6 py-3 rounded-lg hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
-                  <Phone size={20} /> {portfolioData.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-6 text-gray-400 text-sm">
-                <span className="flex items-center gap-2"><MapPin size={16} /> {portfolioData.location}</span>
-              </div>
+          <div className="pixel-scene" aria-label="Developer profile illustration">
+            <div className="scene-sun"></div>
+            <div className="pixel-card">
+              <div className="pixel-window-bar"><i></i><i></i><i></i><span>developer@portfolio</span></div>
+              <div className="profile-zone"><img src={`${import.meta.env.BASE_URL}sagar-profile.jpg`} alt="Sagar Patole"/><div className="pixel-overlay"></div></div>
+              <div className="terminal-lines"><span>$ build scalable things</span><span>✓ APIs connected</span><span>✓ systems shipped</span><span className="blink">_</span></div>
             </div>
-            <div className="flex justify-center">
-              <img src={portfolioData.profileImage} alt="Sagar Moses Patole" className="w-80 h-80 rounded-lg object-cover border-2 border-primary shadow-2xl" />
-            </div>
-          </div>
-        </section>
-
-        <section className="stats-strip">
-          <div className="container stats">
-            <div><strong>3+</strong><span>Years Experience</span></div>
-            <div><strong>6+</strong><span>Enterprise Projects</span></div>
-            <div><strong>2</strong><span>Production Side Projects</span></div>
-            <div><strong>2024</strong><span>Tech Rising Star</span></div>
-          </div>
-        </section>
-
-      {/* About */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-card-bg">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8">About Me</h2>
-          <p className="text-gray-400 text-lg leading-relaxed max-w-3xl">
-            {portfolioData.description}
-          </p>
-        </div>
-      </section>
-
-      {/* Skills */}
-      <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-            <Code size={32} className="text-primary" /> Technical Skills
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {portfolioData.skills.map((skillGroup, i) => (
-              <div key={i} className="bg-card-bg p-6 rounded-lg border border-border-color hover:border-primary transition-colors">
-                <h3 className="text-lg font-bold text-primary mb-4">{skillGroup.category}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {skillGroup.items.map((skill, j) => (
-                    <span key={j} className="bg-background px-3 py-1 rounded-full text-sm text-gray-300 border border-border-color">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <div className="scene-label">3+ YEARS<br/>OF BUILDING</div>
           </div>
         </div>
       </section>
 
-      {/* Experience */}
-      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-card-bg">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-            <Briefcase size={32} className="text-primary" /> Work Experience
-          </h2>
-          <div className="space-y-12">
-            {portfolioData.experience.map((exp, i) => (
-              <div key={i} className="border-l-4 border-primary pl-6">
-                <h3 className="text-2xl font-bold">{exp.role}</h3>
-                <p className="text-primary text-lg font-semibold">{exp.company} • {exp.location}</p>
-                <p className="text-gray-400 text-sm mt-1">{exp.duration}</p>
-                <div className="mt-6 space-y-6">
-                  {exp.projects.map((project, j) => (
-                    <div key={j} className="bg-background p-4 rounded-lg">
-                      <h4 className="text-lg font-bold mb-2">{project.name}</h4>
-                      <p className="text-accent text-sm mb-3">{project.tech}</p>
-                      <ul className="space-y-2">
-                        {project.points.map((point, k) => (
-                          <li key={k} className="text-gray-400 flex gap-3">
-                            <span className="text-primary mt-1">•</span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+      <section id="about" className="mission-section dark-section">
+        <div className="wrap mission-grid">
+          <p className="micro orange">ABOUT ME</p>
+          <div>
+            <h2>BUILDING DIGITAL SYSTEMS THAT <em>ACTUALLY WORK.</em></h2>
+            <p className="lead">I'm Sagar Moses Patole, a Full Stack Developer with 3+ years of experience building robust applications with .NET Core, React, Node.js, MongoDB and PostgreSQL.</p>
+            <p>I enjoy taking a feature from a rough idea to a reliable, maintainable product—whether that means designing APIs, securing data, building dashboards, or connecting the entire stack.</p>
           </div>
         </div>
       </section>
 
-      {/* Education */}
-      <section id="education" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-            <GraduationCap size={32} className="text-primary" /> Education
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {portfolioData.education.map((edu, i) => (
-              <div key={i} className="bg-card-bg p-6 rounded-lg border border-border-color hover:border-primary transition-colors">
-                <h3 className="text-lg font-bold text-primary mb-2">{edu.degree}</h3>
-                <p className="text-foreground font-semibold">{edu.institution}</p>
-                <p className="text-gray-400 text-sm mt-2">{edu.year}</p>
+      <section id="work" className="work-section cream-section">
+        <div className="wrap">
+          <div className="section-head"><p className="micro">EXPERIENCE LOG</p><h2>WHERE I BUILT<br/><span>THE THINGS.</span></h2></div>
+          <div className="experience-list">
+            {experience.map(exp=><article className="job job-expanded" key={exp.number}>
+              <div className="job-index">{exp.number}</div><div className="job-year">{exp.duration}</div>
+              <div className="job-body"><h3>{exp.role}</h3><h4>{exp.company}</h4>
+                <div className="experience-projects">{exp.projects.map(([name,tech,items])=><div className="experience-project" key={name}><h5>{name}</h5><p className="experience-tech">{tech}</p><ul>{items.map(x=><li key={x}>{x}</li>)}</ul></div>)}</div>
               </div>
-            ))}
+            </article>)}
           </div>
         </div>
       </section>
 
-      {/* Achievements */}
-      <section id="achievements" className="py-20 px-4 sm:px-6 lg:px-8 bg-card-bg">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-            <Award size={32} className="text-primary" /> Achievements
-          </h2>
-          <div className="space-y-6">
-            {portfolioData.achievements.map((achievement, i) => (
-              <div key={i} className="bg-background p-6 rounded-lg border-l-4 border-accent">
-                <h3 className="text-xl font-bold text-accent mb-2">{achievement.title}</h3>
-                <p className="text-gray-400">{achievement.description}</p>
-              </div>
-            ))}
-          </div>
+      <section id="projects" className="projects-section dark-section">
+        <div className="wrap">
+          <div className="section-head light"><p className="micro orange">SELECTED BUILDS</p><h2>PROJECTS WITH<br/><span>REAL MOVEMENT.</span></h2></div>
+          <div className="project-grid">{projects.map(p=><article className="project-card" key={p.name}>
+            <div className="project-art"><span>{p.accent}</span><div className="project-art-lines"></div><b>{'{ }'}</b></div>
+            <div className="project-content"><p className="micro orange">PERSONAL PROJECT</p><h3>{p.name}</h3><h4>{p.type}</h4><p>{p.description}</p><code>{p.stack}</code><a href={p.link} target="_blank" rel="noreferrer">VIEW LIVE PROJECT ↗</a></div>
+          </article>)}</div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-card-bg">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center space-y-8">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                I&apos;m always interested in hearing about new projects and opportunities. Feel free to reach out through any of the channels below.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <a href={`mailto:${portfolioData.email}`} className="bg-background p-6 rounded-lg border border-border-color hover:border-primary transition-colors hover:shadow-lg">
-                <Mail size={32} className="text-primary mx-auto mb-3" />
-                <p className="text-foreground font-semibold mb-2">Email</p>
-                <p className="text-gray-400 text-sm break-all">{portfolioData.email}</p>
-              </a>
-              <a href={`tel:${portfolioData.phone}`} className="bg-background p-6 rounded-lg border border-border-color hover:border-primary transition-colors hover:shadow-lg">
-                <Phone size={32} className="text-primary mx-auto mb-3" />
-                <p className="text-foreground font-semibold mb-2">Phone</p>
-                <p className="text-gray-400 text-sm">{portfolioData.phone}</p>
-              </a>
-              <div className="bg-background p-6 rounded-lg border border-border-color hover:border-primary transition-colors">
-                <MapPin size={32} className="text-primary mx-auto mb-3" />
-                <p className="text-foreground font-semibold mb-2">Location</p>
-                <p className="text-gray-400 text-sm">{portfolioData.location}</p>
-              </div>
-            </div>
-          </div>
+      <section id="stack" className="stack-section paper-grid">
+        <div className="wrap">
+          <div className="section-head"><p className="micro">MY TOOLBOX</p><h2>THE STACK I<br/><span>SHIP WITH.</span></h2></div>
+          <div className="stack-grid">{skills.map(([title,content],i)=><article className="stack-card" key={title}><span>0{i+1}</span><h3>{title}</h3><p>{content}</p></article>)}</div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border-color py-8 px-4 sm:px-6 lg:px-8 bg-card-bg">
-        <div className="max-w-6xl mx-auto text-center text-gray-400 text-sm">
-          <p>&copy; 2026 Sagar Moses Patole. All rights reserved.</p>
+      <section className="award-strip"><div className="wrap"><span>★</span><strong>TECH RISING STAR AWARD — 2024</strong><p>Recognized for technical contributions and innovation across multiple projects.</p></div></section>
+
+      <section id="contact" className="contact-section cream-section">
+        <div className="wrap contact-grid">
+          <div><p className="micro">LET'S BUILD</p><h2>GOT A HARD<br/>PROBLEM?</h2><p className="lead">I’m open to full-stack opportunities where I can build, learn and ship meaningful software.</p></div>
+          <div className="contact-box"><a href="mailto:sagarpatole113@gmail.com">sagarpatole113@gmail.com ↗</a><p>JALNA, MAHARASHTRA · INDIA</p><div className="socials"><a href="https://github.com/sagarpatole113" target="_blank" rel="noreferrer"><Github size={18}/> GITHUB</a><a href="https://www.linkedin.com/in/sagar-patole-953015182/" target="_blank" rel="noreferrer"><Linkedin size={18}/> LINKEDIN</a></div></div>
         </div>
-      </footer>
-    </div>
-  )
+      </section>
+    </main>
+    <footer><div className="wrap"><span>© 2026 SAGAR PATOLE</span><span>DESIGNED TO BUILD · BUILT TO SHIP</span></div></footer>
+  </div>
 }
 export default App
