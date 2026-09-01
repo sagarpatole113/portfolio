@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Menu, X, Github, Linkedin, FileText } from 'lucide-react'
+import { Menu, X,  FileText } from 'lucide-react'
+import { Github, Linkedin } from './BrandIcons'
 import { githubUrl, linkedinUrl } from '../data/portfolioData'
 
 export default function Navbar() {
