@@ -6,6 +6,8 @@ const resumePath = `${import.meta.env.BASE_URL}Sagar_Patole_Resume.pdf`
 const projects = [
   { name:'FLEETPULSE', type:'Fleet Management & Real-Time Tracking', description:'Full-stack fleet management for vehicles, drivers, trips and live operations.', stack:'React · TypeScript · Node.js · Firebase · Socket.IO · Leaflet', link:'https://fleet-pulse-dash.netlify.app/', accent:'01' },
   { name:'FOOD FLOW', type:'Real-Time Order Management', description:'End-to-end food ordering with cart management and live delivery status updates.', stack:'React · Vite · Firebase · Node.js · REST APIs', link:'https://order-management-dash.netlify.app/', accent:'02' },
+  { name: 'SAATATYA',type: 'Daily Mock Test & Exam Practice Platform', description: 'Built a bilingual MPSC practice platform with 100-question timed exams, negative marking, sequential test progression, score history and automated daily test publishing.', stack: 'React Native · Node.js · Express · Firebase · Firestore · Node Cron', link: 'https://github.com/sagarpatole113/daily-challenge-mono', accent: '03'}
+
 ]
 
 const skills = [
@@ -72,7 +74,7 @@ function App(){
               <div className="profile-zone"><img src={`${import.meta.env.BASE_URL}sagar-profile.jpg`} alt="Sagar Patole"/><div className="pixel-overlay"></div></div>
               <div className="terminal-lines"><span>$ build scalable things</span><span>✓ APIs connected</span><span>✓ systems shipped</span><span className="blink">_</span></div>
             </div>
-            <div className="scene-label">3+ YEARS<br/>OF BUILDING</div>
+            <div className="scene-label">3 YEARS<br/>OF BUILDING</div>
           </div>
         </div>
       </section>
@@ -82,7 +84,7 @@ function App(){
           <p className="micro orange">ABOUT ME</p>
           <div>
             <h2>BUILDING DIGITAL SYSTEMS THAT <em>ACTUALLY WORK.</em></h2>
-            <p className="lead">I'm Sagar Moses Patole, a Full Stack Developer with 3+ years of experience building robust applications with .NET Core, React, Node.js, MongoDB and PostgreSQL.</p>
+            <p className="lead">I'm Sagar Moses Patole, a Full Stack Developer with 3 years of experience building robust applications with .NET Core, React, Node.js, MongoDB and PostgreSQL.</p>
             <p>I enjoy taking a feature from a rough idea to a reliable, maintainable product—whether that means designing APIs, securing data, building dashboards, or connecting the entire stack.</p>
           </div>
         </div>
