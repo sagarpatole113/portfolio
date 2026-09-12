@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Github, Linkedin } from './components/BrandIcons'
+import { trackVisit, submitVisitorContact } from './visitorTracking'
+import Admin from './Admin'
 
 const resumePath = `${import.meta.env.BASE_URL}Sagar_Patole_Resume.pdf`
 
@@ -40,9 +42,13 @@ const experience = [
 const nav = ['ABOUT', 'WORK', 'PROJECTS', 'STACK', 'CONTACT']
 
 function App(){
+  if(window.location.hash === '#/admin') return <Admin />
   const [menuOpen,setMenuOpen]=useState(false)
   const [scrolled,setScrolled]=useState(false)
-  useEffect(()=>{ const onScroll=()=>setScrolled(window.scrollY>20); window.addEventListener('scroll',onScroll); return()=>window.removeEventListener('scroll',onScroll)},[])
+  const [contact,setContact]=useState({name:'',email:'',company:'',message:''})
+  const [contactStatus,setContactStatus]=useState('')
+  useEffect(()=>{ trackVisit(); const onScroll=()=>setScrolled(window.scrollY>20); window.addEventListener('scroll',onScroll); return()=>window.removeEventListener('scroll',onScroll)},[])
+  const sendContact=async(e)=>{e.preventDefault();setContactStatus('Sending...');try{await submitVisitorContact(contact);setContactStatus('Thanks — your details were sent.');setContact({name:'',email:'',company:'',message:''})}catch(err){setContactStatus(err.message)}}
   const go=(id)=>{setMenuOpen(false);document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
 
   return <div className="flyt-site">
@@ -126,7 +132,7 @@ function App(){
       <section id="contact" className="contact-section cream-section">
         <div className="wrap contact-grid">
           <div><p className="micro">LET'S BUILD</p><h2>GOT A HARD<br/>PROBLEM?</h2><p className="lead">I’m open to full-stack opportunities where I can build, learn and ship meaningful software.</p></div>
-          <div className="contact-box"><a href="mailto:sagarpatole113@gmail.com">sagarpatole113@gmail.com ↗</a><p>JALNA, MAHARASHTRA · INDIA</p><div className="socials"><a href="https://github.com/sagarpatole113" target="_blank" rel="noreferrer"><Github size={18}/> GITHUB</a><a href="https://www.linkedin.com/in/sagar-patole-953015182/" target="_blank" rel="noreferrer"><Linkedin size={18}/> LINKEDIN</a></div></div>
+          <div className="contact-box"><a href="mailto:sagarpatole113@gmail.com">sagarpatole113@gmail.com ↗</a><p>JALNA, MAHARASHTRA · INDIA</p><div className="socials"><a href="https://github.com/sagarpatole113" target="_blank" rel="noreferrer"><Github size={18}/> GITHUB</a><a href="https://www.linkedin.com/in/sagar-patole-953015182/" target="_blank" rel="noreferrer"><Linkedin size={18}/> LINKEDIN</a></div><form className="visitor-form" onSubmit={sendContact}><p className="micro">LEAVE YOUR DETAILS</p><input required placeholder="Your name" value={contact.name} onChange={e=>setContact({...contact,name:e.target.value})}/><input required type="email" placeholder="Email" value={contact.email} onChange={e=>setContact({...contact,email:e.target.value})}/><input placeholder="Company (optional)" value={contact.company} onChange={e=>setContact({...contact,company:e.target.value})}/><textarea placeholder="Message (optional)" value={contact.message} onChange={e=>setContact({...contact,message:e.target.value})}/><button type="submit">SEND DETAILS ↗</button>{contactStatus&&<small>{contactStatus}</small>}</form></div>
         </div>
       </section>
     </main>
