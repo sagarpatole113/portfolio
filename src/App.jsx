@@ -77,7 +77,28 @@ function App(){
             <div className="scene-sun"></div>
             <div className="pixel-card">
               <div className="pixel-window-bar"><i></i><i></i><i></i><span>developer@portfolio</span></div>
-              <div className="profile-zone"><img src={`${import.meta.env.BASE_URL}sagar-profile.jpg`} alt="Sagar Patole"/><div className="pixel-overlay"></div></div>
+              <div className="profile-zone system-graphic" aria-label="System illustration">
+                <div className="system-glow"></div>
+                <div className="system-board">
+                  <div className="system-header">
+                    <span></span><span></span><span></span>
+                    <small>system/portfolio</small>
+                  </div>
+                  <div className="system-content">
+                    <div className="chip chip-primary">API</div>
+                    <div className="chip">NODE</div>
+                    <div className="chip">SQL</div>
+                    <div className="mini-grid">
+                      <span></span><span></span><span></span><span></span>
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <div className="stack-lines">
+                      <i></i><i></i><i></i><i></i>
+                    </div>
+                  </div>
+                </div>
+                <div className="pixel-overlay"></div>
+              </div>
               <div className="terminal-lines"><span>$ build scalable things</span><span>✓ APIs connected</span><span>✓ systems shipped</span><span className="blink">_</span></div>
             </div>
             <div className="scene-label">3 YEARS<br/>OF BUILDING</div>
